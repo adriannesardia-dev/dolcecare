@@ -56,10 +56,11 @@
                     <div class="invalid-feedback" id="medical_historyError"></div>
                 </div>
             </div>
-            <div class="mt-4">
+            <div class="mt-4 d-flex gap-2">
                 <button type="submit" class="btn btn-primary" id="submitBtn">
                     <i class="bi bi-check-lg"></i> Update Patient
                 </button>
+                <a href="{{ route('patients.index') }}" class="btn btn-secondary">Cancel</a>
             </div>
         </form>
     </div>

@@ -13,7 +13,7 @@
 <div class="card border-0 shadow-sm">
     <div class="card-body p-0">
         <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
+            <table class="table table-hover align-middle mb-0" id="patientsTable">
                 <thead class="table-light">
                     <tr>
                         <th>#</th>
@@ -28,7 +28,7 @@
                     @forelse ($patients as $patient)
                         <tr>
                             <td class="text-muted">{{ $patient->id }}</td>
-                            <td>{{ $patient->first_name }} {{ $patient->last_name }}</td>
+                            <td class="fw-medium">{{ $patient->first_name }} {{ $patient->last_name }}</td>
                             <td>{{ $patient->gender }}</td>
                             <td>{{ $patient->contact_number }}</td>
                             <td>{{ \Carbon\Carbon::parse($patient->date_of_birth)->format('M d, Y') }}</td>
@@ -88,7 +88,11 @@
         .then(data => {
             if (data.success) {
                 showToast(data.message, 'success');
-                deleteTarget.closest('tr').remove();
+                const row = deleteTarget.closest('tr');
+                row.style.transition = 'all .3s ease';
+                row.style.transform = 'translateX(20px)';
+                row.style.opacity = '0';
+                setTimeout(() => row.remove(), 300);
             } else {
                 showToast(data.message || 'Delete failed.', 'danger');
             }

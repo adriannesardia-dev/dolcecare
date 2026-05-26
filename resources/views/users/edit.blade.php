@@ -26,7 +26,7 @@
                     <div class="invalid-feedback" id="emailError"></div>
                 </div>
                 <div class="col-md-6">
-                    <label for="password" class="form-label">New Password <span class="text-muted">(leave blank to keep current)</span></label>
+                    <label for="password" class="form-label">New Password <span class="text-muted fw-normal">(leave blank to keep current)</span></label>
                     <input type="password" class="form-control" id="password" name="password" minlength="8">
                     <div class="invalid-feedback" id="passwordError"></div>
                 </div>
@@ -35,10 +35,11 @@
                     <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
                 </div>
             </div>
-            <div class="mt-4">
+            <div class="mt-4 d-flex gap-2">
                 <button type="submit" class="btn btn-primary" id="submitBtn">
                     <i class="bi bi-check-lg"></i> Update User
                 </button>
+                <a href="{{ route('users.index') }}" class="btn btn-secondary">Cancel</a>
             </div>
         </form>
     </div>

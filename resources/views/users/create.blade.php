@@ -35,10 +35,11 @@
                     <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
                 </div>
             </div>
-            <div class="mt-4">
+            <div class="mt-4 d-flex gap-2">
                 <button type="submit" class="btn btn-primary" id="submitBtn">
                     <i class="bi bi-check-lg"></i> Save User
                 </button>
+                <a href="{{ route('users.index') }}" class="btn btn-secondary">Cancel</a>
             </div>
         </form>
     </div>

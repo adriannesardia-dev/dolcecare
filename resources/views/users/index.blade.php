@@ -13,7 +13,7 @@
 <div class="card border-0 shadow-sm">
     <div class="card-body p-0">
         <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
+            <table class="table table-hover align-middle mb-0" id="usersTable">
                 <thead class="table-light">
                     <tr>
                         <th>#</th>
@@ -27,7 +27,7 @@
                     @forelse ($users as $user)
                         <tr>
                             <td class="text-muted">{{ $user->id }}</td>
-                            <td>{{ $user->name }}</td>
+                            <td class="fw-medium">{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->created_at?->format('M d, Y') ?? 'N/A' }}</td>
                             <td class="text-end">
@@ -86,7 +86,11 @@
         .then(data => {
             if (data.success) {
                 showToast(data.message, 'success');
-                deleteTarget.closest('tr').remove();
+                const row = deleteTarget.closest('tr');
+                row.style.transition = 'all .3s ease';
+                row.style.transform = 'translateX(20px)';
+                row.style.opacity = '0';
+                setTimeout(() => row.remove(), 300);
             } else {
                 showToast(data.message || 'Delete failed.', 'danger');
             }

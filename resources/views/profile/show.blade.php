@@ -11,13 +11,18 @@
     <div class="col-lg-4">
         <div class="card border-0 shadow-sm text-center">
             <div class="card-body p-4">
-                <div class="mb-3">
+                <div class="mb-3 position-relative d-inline-block">
                     <img src="{{ auth()->user()->profile_picture_url }}"
                          alt="Profile"
-                         class="rounded-circle border"
+                         class="rounded-circle border border-2"
                          width="120" height="120"
-                         style="object-fit:cover;"
+                         style="object-fit:cover;border-color:#e5e7eb!important;transition:transform .3s;"
                          id="avatarPreview">
+                    <div class="position-absolute bottom-0 end-0 bg-primary rounded-circle d-flex align-items-center justify-content-center"
+                         style="width:32px;height:32px;border:3px solid #fff;cursor:pointer;"
+                         onclick="document.getElementById('profile_picture').click();">
+                        <i class="bi bi-camera-fill text-white" style="font-size:.75rem;"></i>
+                    </div>
                 </div>
                 <h5>{{ auth()->user()->name }}</h5>
                 <p class="text-muted mb-1">{{ auth()->user()->email }}</p>
@@ -62,8 +67,14 @@
                         </div>
                         <div class="col-12">
                             <label for="profile_picture" class="form-label">Profile Picture</label>
-                            <input type="file" class="form-control" id="profile_picture" name="profile_picture" accept="image/*">
-                            <div class="form-text">Optional. Accepted: jpeg, png, jpg, gif, webp. Max 2MB.</div>
+                            <input type="file" class="form-control" id="profile_picture" name="profile_picture" accept="image/*" style="display:none;">
+                            <div class="d-flex align-items-center gap-3">
+                                <button type="button" class="btn btn-outline-primary btn-sm" onclick="document.getElementById('profile_picture').click();">
+                                    <i class="bi bi-upload"></i> Choose Image
+                                </button>
+                                <span class="text-muted small" id="fileName">No file chosen</span>
+                            </div>
+                            <div class="form-text mt-2">Accepted: jpeg, png, jpg, gif, webp. Max 2MB.</div>
                             <div class="invalid-feedback" id="profile_pictureError"></div>
                         </div>
                     </div>
@@ -85,6 +96,7 @@
     document.getElementById('profile_picture').addEventListener('change', function () {
         const file = this.files[0];
         if (file) {
+            document.getElementById('fileName').textContent = file.name;
             const reader = new FileReader();
             reader.onload = e => document.getElementById('avatarPreview').src = e.target.result;
             reader.readAsDataURL(file);
