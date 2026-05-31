@@ -221,12 +221,6 @@
                                     </div>
                                     <div class="invalid-feedback" id="passwordError"></div>
                                 </div>
-                                <div class="form-check mb-3">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember">
-                                    <label class="form-check-label" for="remember" style="font-size:.875rem;color:#6b7280;font-weight:500;">
-                                        Remember me
-                                    </label>
-                                </div>
                                 <button type="submit" class="btn-auth" id="loginBtn">
                                     <span id="loginBtnText">Sign In</span>
                                     <span id="loginBtnSpinner" class="spinner-border spinner-border-sm d-none"></span>
