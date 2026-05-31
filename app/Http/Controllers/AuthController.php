@@ -30,11 +30,10 @@ class AuthController extends Controller
             'password' => $validated['password'],
         ]);
 
-        Auth::login($user);
-
         return response()->json([
             'success' => true,
-            'message' => 'Registration successful! Welcome aboard.',
+            'message' => 'Account created successfully!',
+            'redirect' => route('login'),
         ]);
     }
 

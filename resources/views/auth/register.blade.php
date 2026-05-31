@@ -281,6 +281,14 @@
             const btn = document.getElementById('registerBtn');
             const btnText = document.getElementById('registerBtnText');
             const btnSpinner = document.getElementById('registerBtnSpinner');
+
+            const password = document.getElementById('password').value;
+            const passwordConfirmation = document.getElementById('password_confirmation').value;
+            if (password !== passwordConfirmation) {
+                showToast('Passwords do not match', 'warning');
+                return;
+            }
+
             btn.disabled = true;
             btnText.textContent = 'Creating account...';
             btnSpinner.classList.remove('d-none');
@@ -293,14 +301,18 @@
             const data = await res.json();
             if (data.success) {
                 showToast(data.message, 'success');
-                setTimeout(() => window.location.href = '{{ route("dashboard") }}', 1200);
+                setTimeout(() => window.location.href = data.redirect, 1200);
             } else {
                 if (data.errors) {
-                    for (const [field, messages] of Object.entries(data.errors)) {
-                        const input = document.getElementById(field);
-                        if (input) { input.classList.add('is-invalid'); document.getElementById(field + 'Error').textContent = messages[0]; }
+                    if (data.errors.email) {
+                        showToast('Email account already registered', 'danger');
+                    } else {
+                        const firstError = Object.values(data.errors)[0][0];
+                        showToast(firstError, 'danger');
                     }
-                } else if (data.message) { showToast(data.message, 'warning'); }
+                } else if (data.message) {
+                    showToast(data.message, 'danger');
+                }
                 btn.disabled = false;
                 btnText.textContent = 'Create Account';
                 btnSpinner.classList.add('d-none');
