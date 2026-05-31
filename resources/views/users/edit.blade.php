@@ -51,6 +51,27 @@
     document.getElementById('userForm').addEventListener('submit', async function (e) {
         e.preventDefault();
 
+        const password = document.getElementById('password').value;
+        const passwordConfirmation = document.getElementById('password_confirmation').value;
+
+        if (passwordConfirmation && !password) {
+            showToast('Please enter a new password to change it.', 'danger');
+            document.getElementById('submitBtn').disabled = false;
+            return;
+        }
+
+        if (password && !passwordConfirmation) {
+            showToast('Please confirm your new password.', 'danger');
+            document.getElementById('submitBtn').disabled = false;
+            return;
+        }
+
+        if (password && passwordConfirmation && password !== passwordConfirmation) {
+            showToast('Passwords do not match.', 'danger');
+            document.getElementById('submitBtn').disabled = false;
+            return;
+        }
+
         const btn = document.getElementById('submitBtn');
         btn.disabled = true;
         btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Updating...';

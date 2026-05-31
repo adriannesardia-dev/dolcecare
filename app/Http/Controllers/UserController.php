@@ -47,7 +47,7 @@ class UserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
         ]);
 
-        if ($request->filled('password')) {
+        if ($request->filled('password') || $request->filled('password_confirmation')) {
             $validated['password'] = $request->validate([
                 'password' => ['required', 'confirmed', Password::defaults()],
             ])['password'];
